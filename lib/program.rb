@@ -8,7 +8,11 @@ class Program
   end
 
   def eligible_program?
-    @donations.count <= (FundraisingSystem.total_donations * allocation_target)
+    @donations.count < (FundraisingSystem.total_donations * allocation_target)
+  end
+
+  def accept_donation(donation:)
+    @donations << donation
   end
 end
 

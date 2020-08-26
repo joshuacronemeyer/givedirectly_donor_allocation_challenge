@@ -13,5 +13,6 @@ class Donation
   def allocate_to_program!(programs:)
     eligible_program = programs.find(&:eligible_program?)
     @program = eligible_program
+    @program.accept_donation(donation: self)
   end
 end

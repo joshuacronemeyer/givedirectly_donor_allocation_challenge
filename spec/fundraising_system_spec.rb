@@ -23,7 +23,9 @@ RSpec.describe FundraisingSystem do
     end
 
     it "should fail if the distribution does not equal 100%" do
-
+      kenya_program = Program.new(name: 'Kenya UBI', allocation_target: 0.5)
+      haiti_program = Program.new(name: 'Haiti UBI', allocation_target: 0.1)
+      expect{FundraisingSystem.new(programs: [kenya_program, haiti_program], donations: [])}.to raise_exception("Program alloctions must total 1.0")
     end
 
   end

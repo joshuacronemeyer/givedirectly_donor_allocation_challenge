@@ -20,9 +20,10 @@ RSpec.describe Program do
 
   context "eligiblity" do
     it "should not be eligible when target met" do
-      program = Program.new(name: "Test", allocation_target: 0.0)
+      program = Program.new(name: "Test", allocation_target: 1.0)
       donation = Donation.new(donor: "Yamato", requested_program: "")
-      FundraisingSystem.new(programs: [program], donations: [donation])
+      system = FundraisingSystem.new(programs: [program], donations: [donation])
+      system.allocate_donations_without_preferences!
       expect(program.eligible_program?).to be false
     end
 

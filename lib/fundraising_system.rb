@@ -8,6 +8,7 @@ class FundraisingSystem
     @programs = programs
     @donations = donations
     self.class.total_donations = donations.count
+    raise "Program alloctions must total 1.0" unless self.valid_programs?
   end
 
   def allocate_donations_without_preferences!
@@ -42,6 +43,10 @@ class FundraisingSystem
   end
 
   private
+
+  def valid_programs?
+    @programs.map(&:allocation_target).sum == 1.0
+  end
 
   def self.total_donations=(value)
     @total_donations = value

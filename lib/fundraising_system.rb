@@ -1,3 +1,5 @@
+# Understands how programs and donations work together
+
 require 'program'
 require 'donation'
 class FundraisingSystem

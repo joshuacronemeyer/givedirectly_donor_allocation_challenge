@@ -1,3 +1,4 @@
+#Understands a program with allocation constraints
 require 'fundraising_system'
 class Program
   UNSPECIFIED = "Unspecified"

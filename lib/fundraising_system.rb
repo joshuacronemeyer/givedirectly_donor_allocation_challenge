@@ -14,6 +14,10 @@ class FundraisingSystem
     @donations.each{|donation| donation.allocate_to_program!(programs: @programs)}
   end
 
+  def allocate_donations_with_preferences!
+    @donations.each{|donation| donation.allocate_to_program_and_respect_requests!(programs: @programs)}
+  end
+
   def self.total_donations
     @total_donations
   end
@@ -31,7 +35,7 @@ class FundraisingSystem
 
     donations = donations.map do |donor_name, requested_program|
       program = programs.find{|program| program.name == requested_program}
-      Donation.new(donor: donor_name, program: program)
+      Donation.new(donor: donor_name, requested_program: program)
     end
 
     self.new(programs: programs, donations: donations)

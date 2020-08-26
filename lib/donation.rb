@@ -1,10 +1,9 @@
 class Donation
   attr_accessor :donor, :program, :requested_program
   def initialize(donor:, requested_program:)
-    unspecified_program = Program.new(name: "Unspecified", allocation_target: -1)
     @donor = donor
-    if program.nil? || program == ""
-      @requested_program = unspecified_program
+    if requested_program.nil? || requested_program == ""
+      @requested_program = Program.unspecified
     else
       @requested_program = requested_program
     end
@@ -14,5 +13,14 @@ class Donation
     eligible_program = programs.find(&:eligible_program?)
     @program = eligible_program
     @program.accept_donation(donation: self)
+  end
+
+  def allocate_to_program_and_respect_requests!(programs:)
+    if requested_program.unspecified?
+      allocate_to_program!(programs: programs)
+    else
+      @program = requested_program
+      @program.accept_donation(donation: self)
+    end
   end
 end

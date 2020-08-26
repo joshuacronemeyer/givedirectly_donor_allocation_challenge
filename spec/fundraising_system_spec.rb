@@ -28,14 +28,16 @@ RSpec.describe FundraisingSystem do
 
   end
 
-  describe "#allocate_v2" do
-    it "should honor donation directives when possible" do
-
+  describe "#allocate_donations_with_preferences!" do
+    it "should honor donation directives" do
+      kenya_program = Program.new(name: 'Kenya UBI', allocation_target: 0.5)
+      haiti_program = Program.new(name: 'Haiti UBI', allocation_target: 0.5)
+      naruto_donation = Donation.new(donor: "Naruto", requested_program: kenya_program)
+      kakashi_donation = Donation.new(donor: "Kakashi", requested_program: kenya_program)
+      fundraising_system = FundraisingSystem.new(programs: [kenya_program, haiti_program], donations: [naruto_donation, kakashi_donation])
+      fundraising_system.allocate_donations_with_preferences!
+      expect(naruto_donation.program.name).to eq("Kenya UBI")
+      expect(kakashi_donation.program.name).to eq("Kenya UBI")
     end
-
-    it "should distribute donations according to targets" do
-
-    end
-
   end
 end

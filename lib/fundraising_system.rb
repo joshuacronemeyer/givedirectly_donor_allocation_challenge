@@ -2,13 +2,20 @@ require 'program'
 require 'donation'
 class FundraisingSystem
 
+  @total_donations = 0
+
   def initialize(programs:, donations:)
     @programs = programs
     @donations = donations
+    self.class.total_donations = donations.count
   end
 
   def allocate_donations_without_preferences!
+    @donations.each{|donation| donation.allocate_to_program!(programs: @programs)}
+  end
 
+  def self.total_donations
+    @total_donations
   end
 
   def export_donations_map
@@ -28,5 +35,11 @@ class FundraisingSystem
     end
 
     self.new(programs: programs, donations: donations)
+  end
+
+  private
+
+  def self.total_donations=(value)
+    @total_donations = value
   end
 end

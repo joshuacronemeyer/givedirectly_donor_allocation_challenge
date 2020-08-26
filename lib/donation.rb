@@ -1,3 +1,4 @@
+# Understands donations with program requests
 class Donation
   attr_accessor :donor, :program, :requested_program
   def initialize(donor:, requested_program:)
